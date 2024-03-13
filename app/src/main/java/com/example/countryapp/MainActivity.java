@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String ARG_COUNTRY_OBJECT = "country_object";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,17 +21,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void showCountryDetail(Country country) {
-
-        DetailFragment fragment = new DetailFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_COUNTRY_OBJECT, country);
-        fragment.setArguments(args);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(android.R.id.content, fragment)
-                .addToBackStack(null)
-                .commit();
-    }
 
 }

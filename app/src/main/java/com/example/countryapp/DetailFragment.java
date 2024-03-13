@@ -61,7 +61,7 @@ public class DetailFragment extends Fragment {
         buttonClose = view.findViewById(R.id.buttonClose);
 
         if (getArguments() != null) {
-            Country country = (Country) getArguments().getSerializable(MainActivity.ARG_COUNTRY_OBJECT);
+            Country country = (Country) getArguments().getSerializable(CountryListFragment.ARG_COUNTRY_OBJECT);
             displayCountryDetails(country);
         }
 

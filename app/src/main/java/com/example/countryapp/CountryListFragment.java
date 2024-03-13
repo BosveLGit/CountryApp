@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class CountryListFragment extends Fragment {
 
-    private OnFragmentSendDataListener fragmentSendDataListener;
+    public static final String ARG_COUNTRY_OBJECT = "country_object";
     List<Country> listCountry = new ArrayList<>();
 
     public CountryListFragment() {
@@ -40,16 +40,6 @@ public class CountryListFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        try {
-//            fragmentSendDataListener = (OnFragmentSendDataListener) context;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(context.toString()
-//                    + " должен реализовывать интерфейс OnFragmentInteractionListener");
-//        }
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,7 +84,17 @@ public class CountryListFragment extends Fragment {
 
     private void showCountryDetail(Country country) {
         MainActivity activity = (MainActivity) requireActivity();
-        activity.showCountryDetail(country);
+
+        DetailFragment fragment = new DetailFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_COUNTRY_OBJECT, country);
+        fragment.setArguments(args);
+
+        activity.getSupportFragmentManager().beginTransaction()
+                .replace(android.R.id.content, fragment)
+                .addToBackStack(null)
+                .commit();
+
     }
 
 }
