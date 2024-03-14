@@ -16,11 +16,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CountryListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CountryListFragment extends Fragment {
 
     public static final String ARG_COUNTRY_OBJECT = "country_object";
@@ -28,17 +23,6 @@ public class CountryListFragment extends Fragment {
 
     public CountryListFragment() {
         // Required empty public constructor
-    }
-
-    interface OnFragmentSendDataListener {
-        void onSendData(Country country);
-    }
-
-    public static CountryListFragment newInstance(String param1, String param2) {
-        CountryListFragment fragment = new CountryListFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override

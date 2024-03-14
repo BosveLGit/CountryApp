@@ -14,11 +14,6 @@ import android.widget.TextView;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DetailFragment extends Fragment {
 
     private TextView nameTextView;
@@ -85,27 +80,4 @@ public class DetailFragment extends Fragment {
         }
     }
 
-
-    public void setSelectedItem(Country country) {
-
-        View currentView = getView();
-
-        ImageView flagIcon = (ImageView) currentView.findViewById(R.id.flagIcon);
-        flagIcon.setImageResource(country.getIconFlag());
-
-        TextView nameCountry = (TextView) currentView.findViewById(R.id.nameCountry);
-        nameCountry.setText(country.getCountry());
-
-        TextView nameCapital = (TextView) currentView.findViewById(R.id.nameCapital);
-        nameCapital.setText(country.getCapital());
-
-        TextView square = (TextView) currentView.findViewById(R.id.square);
-        NumberFormat formatter = NumberFormat.getInstance(new Locale("RU"));
-        String countrySquare = formatter.format(country.getSquare());
-        square.setText(String.valueOf("Площадь " + countrySquare + " км2"));
-
-
-        Button buttonClose = (Button) currentView.findViewById(R.id.buttonClose);
-
-    }
 }
