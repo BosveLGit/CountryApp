@@ -19,7 +19,7 @@ public class CountriesViewModel extends ViewModel {
         return countriesLiveData;
     }
 
-    private void loadCountries() {
+    public void loadCountries() {
 
         List<Country> listCountry = new ArrayList<>();
 
