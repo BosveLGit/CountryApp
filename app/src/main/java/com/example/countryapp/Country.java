@@ -1,19 +1,33 @@
 package com.example.countryapp;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 
+@Entity
 public class Country implements Serializable {
 
+    @NotNull
+    @PrimaryKey
+    private String code;
+
+    @NotNull
     private String country;
-    private int iconFlag;
+
+    @NotNull
     private String capital;
+
+    @NotNull
     private int square;
 
-    public Country(String country, int iconFlag, String capital, int square) {
+    public Country(String country, String code, String capital, int square) {
         this.country = country;
-        this.iconFlag = iconFlag;
         this.capital = capital;
         this.square = square;
+        this.code = code;
     }
 
     public String getCountry() {
@@ -22,14 +36,6 @@ public class Country implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public int getIconFlag() {
-        return iconFlag;
-    }
-
-    public void setIconFlag(int iconFlag) {
-        this.iconFlag = iconFlag;
     }
 
     public String getCapital() {
@@ -48,11 +54,19 @@ public class Country implements Serializable {
         this.square = square;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "Country{" +
                 "country='" + country + '\'' +
-                ", iconFlag=" + iconFlag +
+                ", code=" + code +
                 ", capital='" + capital + '\'' +
                 ", square=" + square +
                 '}';

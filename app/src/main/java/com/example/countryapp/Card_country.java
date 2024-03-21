@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -29,7 +31,8 @@ public class Card_country extends AppCompatActivity {
             country = (Country) arguments.getSerializable(Country.class.getSimpleName());
 
             ImageView flagIcon = (ImageView) findViewById(R.id.flagIcon);
-            flagIcon.setImageResource(country.getIconFlag());
+        //    flagIcon.setImageResource(country.getIconFlag());
+            Glide.with(this).load("https://flagsapi.com/"+country.getCode()+"/shiny/64.png").into(flagIcon);
 
             TextView nameCountry = (TextView) findViewById(R.id.nameCountry);
             nameCountry.setText(country.getCountry());

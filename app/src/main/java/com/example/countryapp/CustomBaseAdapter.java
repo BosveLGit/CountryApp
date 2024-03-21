@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class CustomBaseAdapter extends BaseAdapter {
@@ -44,8 +46,10 @@ public class CustomBaseAdapter extends BaseAdapter {
         convertView = inflater.inflate(R.layout.country_item_list, null);
         TextView textView = (TextView) convertView.findViewById(R.id.textView);
         ImageView imageView = (ImageView) convertView.findViewById(R.id.flagIcon);
-        textView.setText(listCountry.get(position).getCountry());
-        imageView.setImageResource(listCountry.get(position).getIconFlag());
+        Country thisCountry = listCountry.get(position);
+        textView.setText(thisCountry.getCountry());
+    //    imageView.setImageResource(listCountry.get(position).getIconFlag());
+        Glide.with(convertView).load("https://flagsapi.com/"+thisCountry.getCode()+"/shiny/64.png").into(imageView);
 
         return convertView;
     }

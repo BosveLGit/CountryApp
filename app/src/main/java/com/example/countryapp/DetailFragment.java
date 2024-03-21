@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -87,7 +89,9 @@ public class DetailFragment extends Fragment {
         if (country != null) {
             nameTextView.setText(country.getCountry());
             capitalTextView.setText(country.getCapital());
-            flagIcon.setImageResource(country.getIconFlag());
+   //       flagIcon.setImageResource(country.getIconFlag());
+
+            Glide.with(this).load("https://flagsapi.com/"+country.getCode()+"/shiny/64.png").into(flagIcon);
             NumberFormat formatter = NumberFormat.getInstance(new Locale("RU"));
             String countrySquare = formatter.format(country.getSquare());
             square.setText(countrySquare);
