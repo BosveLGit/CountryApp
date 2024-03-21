@@ -34,6 +34,7 @@ public class DetailFragment extends Fragment {
     public static DetailFragment newInstance(Country country) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
+        args.putSerializable("country", country);
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,8 +42,7 @@ public class DetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-     //   viewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
-     //   viewModel = new ViewModelProvider(requireActivity()).get(DetailsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
     }
 
     @Override
@@ -63,21 +63,16 @@ public class DetailFragment extends Fragment {
         square = view.findViewById(R.id.square);
         buttonClose = view.findViewById(R.id.buttonClose);
 
-
-        // Почему мы тут не можем получить страну и обновить данные?
-        Log.d("my", viewModel.getSelectedCountry().toString());
-
+        viewModel = new ViewModelProvider(requireActivity()).get(DetailsViewModel.class);
         viewModel.getSelectedCountry().observe(getViewLifecycleOwner(), new Observer<Country>() {
             @Override
             public void onChanged(Country country) {
-
-                Log.d("my", country.toString());
-
                 if (country != null) {
                     displayCountryDetails(country);
                 }
             }
         });
+
 
         buttonClose.setOnClickListener(new View.OnClickListener() {
             @Override

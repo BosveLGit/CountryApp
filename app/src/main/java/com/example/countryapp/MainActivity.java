@@ -14,11 +14,17 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(android.R.id.content, new CountryListFragment())
+                    .replace(R.id.container, new CountryListFragment())
                     .commit();
         }
 
     }
 
+    public void showDetailFragment(Country country) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, DetailFragment.newInstance(country))
+                .addToBackStack(null)
+                .commit();
+    }
 
 }

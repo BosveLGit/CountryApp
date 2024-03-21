@@ -31,8 +31,8 @@ public class CountryListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        countriesViewModel = new ViewModelProvider(this).get(CountriesViewModel.class);
-        detailsViewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
+        countriesViewModel = new ViewModelProvider(requireActivity()).get(CountriesViewModel.class);
+        detailsViewModel = new ViewModelProvider(requireActivity()).get(DetailsViewModel.class);
 
     }
 
@@ -40,50 +40,41 @@ public class CountryListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_country_list, container, false);
+       return inflater.inflate(R.layout.fragment_country_list, container, false);
+
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ListView listView = (ListView) view.findViewById(R.id.MainListView);
+        CustomBaseAdapter customBaseAdapter = new CustomBaseAdapter(getActivity(), listCountry);
+        listView.setAdapter(customBaseAdapter);
+
         countriesViewModel.getCountries().observe(getViewLifecycleOwner(), new Observer<List<Country>>() {
             @Override
             public void onChanged(List<Country> countries) {
+                listCountry.clear();
+                listCountry.addAll(countries);
+                customBaseAdapter.setData(countries);
+            }
+        });
 
-                ListView listView = (ListView) view.findViewById(R.id.MainListView);
-                CustomBaseAdapter customBaseAdapter = new CustomBaseAdapter(getActivity(), countries);
-                listView.setAdapter(customBaseAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                listCountry = countries;
+                Country selectedItem = (Country) customBaseAdapter.getItem(position);
+                detailsViewModel.setSelectedCountry(selectedItem);
 
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                        Country selectedItem = listCountry.get(position);
-
-                        showCountryDetail();
-                        detailsViewModel.setSelectedCountry(selectedItem);
-
-                    }
-                });
+                ((MainActivity) requireActivity()).showDetailFragment(selectedItem);
 
             }
         });
-    }
 
-    private void showCountryDetail() {
-        MainActivity activity = (MainActivity) requireActivity();
 
-        DetailFragment fragment = new DetailFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
 
-        activity.getSupportFragmentManager().beginTransaction()
-                .replace(android.R.id.content, fragment)
-                .addToBackStack(null)
-                .commit();
 
     }
 

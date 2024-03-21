@@ -29,7 +29,8 @@ public class CustomBaseAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return listCountry.get(position);
+       // return null;
     }
 
     @Override
@@ -48,4 +49,13 @@ public class CustomBaseAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+    public void setData(List<Country> countries) {
+        this.listCountry.clear();
+        if (countries != null) {
+            this.listCountry.addAll(countries);
+        }
+        notifyDataSetChanged();
+    }
+
 }
