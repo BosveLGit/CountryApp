@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +88,6 @@ public class DetailFragment extends Fragment {
         if (country != null) {
             nameTextView.setText(country.getCountry());
             capitalTextView.setText(country.getCapital());
-   //       flagIcon.setImageResource(country.getIconFlag());
 
             Glide.with(this).load("https://flagsapi.com/"+country.getCode()+"/shiny/64.png").into(flagIcon);
             NumberFormat formatter = NumberFormat.getInstance(new Locale("RU"));

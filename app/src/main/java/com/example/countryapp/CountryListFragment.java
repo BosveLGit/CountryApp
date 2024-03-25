@@ -11,7 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +51,12 @@ public class CountryListFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Button addbutton = view.findViewById(R.id.addButton);
+        EditText nameCountry = view.findViewById(R.id.nameCountry);
+        EditText capitalCountry = view.findViewById(R.id.capitaleCountry);
+        EditText squareCountry = view.findViewById(R.id.squareCountry);
+        EditText codeCountry = view.findViewById(R.id.codeCountry);
+
         ListView listView = (ListView) view.findViewById(R.id.MainListView);
         CustomBaseAdapter customBaseAdapter = new CustomBaseAdapter(getActivity(), listCountry);
         listView.setAdapter(customBaseAdapter);
@@ -73,8 +82,48 @@ public class CountryListFragment extends Fragment {
             }
         });
 
+        addbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                String param_nameCountry = nameCountry.getText().toString();
+                String param_capitalCountry = capitalCountry.getText().toString();
+                int param_squareCountry = 0;
 
+                try {
+                    param_squareCountry = Integer.parseInt(squareCountry.getText().toString());
+                } catch (NumberFormatException e) {
+                }
+
+                String param_codeCountry = codeCountry.getText().toString();
+
+                if(param_nameCountry.isEmpty()
+                        || param_capitalCountry.isEmpty()
+                        || param_codeCountry.isEmpty()) {
+
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext()
+                            , "Заполните навание страны, столицу и код!", Toast.LENGTH_LONG);
+                    toast.show();
+
+                    return;
+                }
+
+                Country country = new Country(param_nameCountry, param_codeCountry, param_capitalCountry, param_squareCountry);
+                App.getInstance().getDatabase().countryDAO().insert(country);
+
+                countriesViewModel.loadCountries();
+
+                Toast toast = Toast.makeText(getActivity().getApplicationContext()
+                        , "Добавлено!", Toast.LENGTH_LONG);
+                toast.show();
+
+                nameCountry.setText("");
+                capitalCountry.setText("");
+                squareCountry.setText("");
+                codeCountry.setText("");
+
+            }
+        });
 
     }
 
